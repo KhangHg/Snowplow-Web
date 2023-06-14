@@ -1,26 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-      crossorigin="anonymous"
-    />
-    <title>JSOM-E-COM</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <title>JSOM-E-COM</title>
+  <script type="text/javascript" async=1>
+
+    ; (function (p, l, o, w, i, n, g) {
+      if (!p[i]) {
+        p.GlobalSnowplowNamespace = p.GlobalSnowplowNamespace || [];
+        p.GlobalSnowplowNamespace.push(i); p[i] = function () {
+          (p[i].q = p[i].q || []).push(arguments)
+        }; p[i].q = p[i].q || []; n = l.createElement(o); g = l.getElementsByTagName(o)[0]; n.async = 1;
+        n.src = w; g.parentNode.insertBefore(n, g)
+      }
+    }(
+      window,
+      document,
+      "script",
+      "https://0cc9cd10-dd64-4c67-bbd4-fb8ad09e3a70.app.try-snowplow.com/v3/try.js",
+      "snowplow")
+    );
+
+
+    snowplow("newTracker", "try", "https://0cc9cd10-dd64-4c67-bbd4-fb8ad09e3a70.app.try-snowplow.com", {
+      appId: "E-COM", // you can specify your own app name here
+      platform: "web",
+
+      contexts: {
+        webPage: true, // this sets a unique id for each page view
+        performanceTiming: true // this captures performance metrics like load times
+      }
+    });
+
+    // send first heartbeat after 10 seconds, and every 10 seconds thereafter
+    snowplow("enableActivityTracking", { minimumVisitLength: 10, heartbeatDelay: 10 });
+    snowplow("enableLinkClickTracking");
+    snowplow("trackPageView",// no custom title
+      null,
+
+      // The usual array of static contexts
+      [{
+        schema: 'iglu:com.acme/static_context/jsonschema/1-0-0',
+        data: {
+          staticValue: new Date().toString()
+        }
+      }],);
+
+
+
+
+  </script>
+  <script>
+    function trackingProduct() {
+      console.log("test");
+      window.snowplow('trackSelfDescribingEvent', {
+        schema: "iglu:com.trysnowplow/test/jsonschema/1-2-1",
+        data: {
+          pageType: "test",
+          lastUpdated: new Date(2014, 1, 26)
+        }
+      });
+    }
+
+    trackingProduct();
+  </script>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
 </html>
